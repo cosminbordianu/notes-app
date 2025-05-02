@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="./dist/index.css" />
+    <script defer type="module" src="./js/main.js"></script>
+  </head>
+  <body>
+    <div class="notes">
+      <nav>
+        <div class="notes__sidebar">
+          <button class="notes__btn" id="addNoteBtn" type="button">
+            Add Note
+          </button>
+          <div class="notes__list">
+            <!-- <div class="notes__item--selected notes__item">
+              <div class="notes__item-title">Title</div>
+              <div class="notes__item-body">Note Body</div>
+              <div class="notes__item-date">Thursday 3:30pm</div>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="notes__hamburger">
+          <div class="notes__hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p>⬅️ View Notes</p>
+        </div>
+      </nav>
+      <div class="notes__preview">
+        <textarea placeholder="Title" class="notes__preview-title"></textarea>
+        <textarea
+          name="body"
+          class="notes__preview-body active"
+          placeholder="Notes Body"
+        ></textarea>
+        <div class="notes__preview-btns">
+          <button id="saveBtn">Save</button>
+          <button id="cancelBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
