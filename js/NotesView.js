@@ -86,7 +86,7 @@ export default class NotesView {
     return `
         <div class="notes__item" data-id=${note.id}>
             <div class="notes__item-title">${note.title == "" ? "Enter a title": note.title}</div>
-            <div class="notes__item-body">${note.body == "" ? "Write your notes..." : note.body}</div>
+            <div class="notes__item-body">${note.body == "" ? "Write your notes..." : (note.body.length > 60 ? note.body.substring(0, 60) + "..." : note.body)}</div>
             <div class="notes__item-date">${formattedDate}</div>
             <button class="notes__item-delete" title="Delete Note"><img src="/images/delete.png"></button>
         </div>
