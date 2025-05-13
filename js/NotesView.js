@@ -24,7 +24,6 @@ export default class NotesView {
     const saveBtn = document.getElementById("saveBtn");
     const cancelBtn = document.getElementById("cancelBtn");
     const addNoteBtn = document.getElementById("addNoteBtn");
-    const deleteBtns = document.querySelectorAll(".notes__item-delete");
 
     saveBtn.addEventListener("click", () => {
       this.onNoteSave(this.titleInput, this.bodyInput);
@@ -86,8 +85,8 @@ export default class NotesView {
 
     return `
         <div class="notes__item" data-id=${note.id}>
-            <div class="notes__item-title">${note.title}</div>
-            <div class="notes__item-body">${note.body}</div>
+            <div class="notes__item-title">${note.title == "" ? "Enter a title": note.title}</div>
+            <div class="notes__item-body">${note.body == "" ? "Write your notes..." : note.body}</div>
             <div class="notes__item-date">${formattedDate}</div>
             <button class="notes__item-delete" title="Delete Note"><img src="/images/delete.png"></button>
         </div>
@@ -100,11 +99,12 @@ export default class NotesView {
     });
 
     noteSelected.classList.add("notes__item--selected");
-    const title = noteSelected.querySelector(".notes__item-title");
-    const body = noteSelected.querySelector(".notes__item-body");
+    const noteId = parseInt(noteSelected.dataset.id);
+    const noteData = NotesAPI.getAllNotes().find(note => note.id === noteId);
+    
+    titleInput.value = noteData.title;
+    bodyInput.value = noteData.body;
 
-    titleInput.value = title.innerText;
-    bodyInput.value = body.innerText;
     this.showNotes();
   }
 
@@ -140,22 +140,21 @@ export default class NotesView {
   onNoteCancel(titleInput, bodyInput) {
     const selectedNote = document.querySelector(".notes__item--selected");
     if (!selectedNote) return;
-    const currentTitle = selectedNote.querySelector(".notes__item-title");
-    const currentBody = selectedNote.querySelector(".notes__item-body");
-    console.log(currentTitle);
-    titleInput.value = currentTitle.innerText;
-    bodyInput.value = currentBody.innerText;
+    const noteId = parseInt(selectedNote.dataset.id);
+    const noteData = NotesAPI.getAllNotes().find(note => note.id === noteId);
+
+    titleInput.value = noteData.title;
+    bodyInput.value = noteData.body;
   }
 
   onNoteAdd(titleInput, bodyInput) {
     const newNote = {
-      title: "Enter a title",
-      body: "Here you can write your notes...",
+      title: "",
+      body: ""
     };
 
     NotesAPI.saveNote(newNote);
 
-    // Refresh to get updated notes with assigned ID
     this.refreshNotes();
 
     // Get the latest note (first due to sorting)
